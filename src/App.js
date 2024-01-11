@@ -55,7 +55,7 @@ class App extends Component {
                   <
                   /div>
         })} */}
-        <CardList></CardList>
+        <CardList monsters={filteredMonsters}/>
       </div>
     );
   }
