@@ -6,7 +6,7 @@ import SearchBox from './components/search-box/search-box.component';
 
 import { getData } from './utils/data.utils';
 
-type Monster = {
+export type Monster = {
   id: string,
   name: string,
   email: string
@@ -16,18 +16,16 @@ type Monster = {
 const FunctionalApp = () => {
 
   const [searchField, setSearchField] = useState('')//[value, setValue]
-  const [monsters, setMonsters] = useState([])
+  const [monsters, setMonsters] = useState<Monster[]>([])
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
   //UseEffetc will execute fetch on mount aviding infinte loop of re-rendering
   useEffect(() => {
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    // .then((response) => response.json(response))
-    // .then((users) => setMonsters(users))
     const fetchUsers = async () => {
       const users = await getData<Array<Monster>>('https://jsonplaceholder.typicode.com/users');
       setMonsters(users)
     }
+    fetchUsers()
   },[])
 
   useEffect(() => {
