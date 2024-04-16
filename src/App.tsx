@@ -4,6 +4,14 @@ import { Component } from 'react';
 import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/search-box/search-box.component';
 
+import { getData } from './utils/data.utils';
+
+type Monster = {
+  id: string,
+  name: string,
+  email: string
+}
+
 // Functional Component (Hooks)
 const FunctionalApp = () => {
 
@@ -13,9 +21,13 @@ const FunctionalApp = () => {
 
   //UseEffetc will execute fetch on mount aviding infinte loop of re-rendering
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json(response))
-    .then((users) => setMonsters(users))
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    // .then((response) => response.json(response))
+    // .then((users) => setMonsters(users))
+    const fetchUsers = async () => {
+      const users = await getData<Array<Monster>>('https://jsonplaceholder.typicode.com/users');
+      setMonsters(users)
+    }
   },[])
 
   useEffect(() => {
